@@ -1,6 +1,14 @@
 version: 0.2
 
 phases:
+  install:
+    runtime-versions:
+      java: corretto21
+    commands:
+      - echo "Install phase..."
+      - java -version
+      - mvn -version
+
   pre_build:
     commands:
       - echo Pre-build phase...
