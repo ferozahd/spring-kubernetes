@@ -4,17 +4,17 @@ phases:
   install:
     runtime-versions:
       java: corretto21
-  commands:
-    - echo "Install phase..."
-    - java -version
-    - mvn -version
-    - echo "Logging in to Amazon ECR..."
-    - 'ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)'
-    - 'REGION=$AWS_DEFAULT_REGION'
-    - 'REPO_URI=${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/spring-kubernet'
-    - 'aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REPO_URI'
-    - 'COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)'
-    - 'IMAGE_TAG=${COMMIT_HASH:-latest}'
+    commands:
+      - echo "Install phase..."
+      - java -version
+      - mvn -version
+      - echo "Logging in to Amazon ECR..."
+      - 'ACCOUNT_ID=$(echo $CODEBUILD_BUILD_ARN | cut -d: -f5)'
+      - 'REGION=$AWS_DEFAULT_REGION'
+      - 'REPO_URI=${ACCOUNT_ID}.dkr.ecr.${REGION}.amazonaws.com/spring-kubernet'
+      - 'aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REPO_URI'
+      - 'COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)'
+      - 'IMAGE_TAG=${COMMIT_HASH:-latest}'
 
   pre_build:
     commands:
