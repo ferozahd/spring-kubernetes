@@ -3,6 +3,7 @@ version: 0.2
 env:
   variables:
     REPOSITORY_NAME: "spring-kubernet"
+    IMAGE_TAG: "latest"
 
 phases:
   install:
@@ -26,14 +27,14 @@ phases:
       - aws sts get-caller-identity
       - 'aws ecr get-login-password --region $REGION | docker login --username AWS --password-stdin $REPO_URI'
       - 'COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)'
-      - 'IMAGE_TAG=${COMMIT_HASH:-latest}'
-      - echo "IMAGE_TAG=$IMAGE_TAG"
+
 
   build:
     commands:
       - echo "Build started on $(date)"
       - mvn clean package -DskipTests
       - echo "Building Docker image..."
+      - echo "Repo URI $REPO_URI"
       - 'docker build -t ${REPOSITORY_NAME}:${IMAGE_TAG} .'
       - 'docker tag ${REPOSITORY_NAME}:${IMAGE_TAG} ${REPO_URI}:${IMAGE_TAG}'
       - 'docker tag ${REPOSITORY_NAME}:${IMAGE_TAG} ${REPO_URI}:latest'
