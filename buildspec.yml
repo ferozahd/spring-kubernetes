@@ -1,9 +1,9 @@
 version: 0.2
-
+#REPO_URI=646687997740.dkr.ecr.us-east-1.amazonaws.com/spring-kubernet
 env:
   variables:
     REPOSITORY_NAME: "spring-kubernet"
-    IMAGE_TAG: "latest"
+    IMAGE_TAG: "${REPOSITORY_NAME}:latest"
 
 phases:
   install:
