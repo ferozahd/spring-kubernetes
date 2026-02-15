@@ -42,7 +42,7 @@ phases:
   post_build:
     commands:
       - echo "Pushing Docker image to ECR..."
-#      - 'docker push ${REPO_URI}:${IMAGE_TAG}'
+      - 'docker push ${REPO_URI}:${IMAGE_TAG}'
       - 'docker push ${REPO_URI}:latest'
       - echo "Done. Pushed ${REPO_URI}:${IMAGE_TAG} and :latest"
 
